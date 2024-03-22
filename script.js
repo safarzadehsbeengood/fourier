@@ -69,7 +69,13 @@ function draw() {
   noStroke();
   fill(0);
   textSize(16);
-  text(`R: ${radiusSlider.value()}`, -width/3 + 70, -height/2+30);
-  text(`N: ${nSlider.value()}`, -width/3 + 70, -height/2+50);
-  text(`Speed: ${(timeSlider.value()*10).toFixed(3)}`, -width/3 + 70, -height/2+70);
+  // translate(-width/3, -height/2);
+  text(`R: ${radiusSlider.value()}`, -30, 180);
+  text(`N: ${nSlider.value()}`, -30, 210);
+  text(`Speed: ${(timeSlider.value()*10).toFixed(3)}`, -30, 240);
+}
+
+window.onresize = () => {
+  resizeCanvas(windowWidth-100, windowHeight-100);
+  cnv.position((windowWidth-width)/2, (windowHeight-height)/2);
 }
