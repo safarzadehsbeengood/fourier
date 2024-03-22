@@ -2,8 +2,7 @@ var cnv;
 let time = 0;
 let wave = [];
 let waveStart;
-var radiusSlider;
-var nSlider;
+var radiusSlider, nSlider, timeSlider;
 let p = 1;
 let n;
 
@@ -12,11 +11,13 @@ function setup() {
   cnv.position((windowWidth-width)/2, (windowHeight-height)/2);
   radiusSlider = createSlider(30, 100, 60, 1);
   nSlider = createSlider(1, 13, 3, 1);
+  timeSlider = createSlider(0.001, 0.15, 0.02, 0.001);
 }
 
 function draw() {
   p = 1;
   n = nSlider.value();
+  stroke(0);
   background(color(200, 255, 200));
   translate(width/4, height/2);
   strokeWeight(4);
@@ -44,12 +45,12 @@ function draw() {
     circle(pos.x, pos.y, 6);
   }
 
-  time += 0.02;
+  time += timeSlider.value();
  
   waveStart = (width+radiusSlider.value())/4;
   let offset = 0;
   noFill();
-  strokeWeight(3)
+  strokeWeight(2)
   beginShape();
   for (let i = wave.length; i >= 0; i--) {
     vertex(waveStart-offset, wave[i]);
@@ -65,4 +66,10 @@ function draw() {
   point(waveStart, wave[wave.length-1]);
   strokeWeight(3);
   rect(-width/4, -height/2, width, height);
+  noStroke();
+  fill(0);
+  textSize(16);
+  text(`R: ${radiusSlider.value()}`, -width/3 + 70, -height/2+30);
+  text(`N: ${nSlider.value()}`, -width/3 + 70, -height/2+50);
+  text(`Speed: ${(timeSlider.value()*10).toFixed(3)}`, -width/3 + 70, -height/2+70);
 }
